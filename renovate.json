@@ -1,0 +1,16 @@
+{
+  "extends": [
+    "config:base",
+    "group:allNonMajor",
+    ":pinAllExceptPeerDependencies"
+  ],
+  "timezone": "Europe/Madrid",
+  "lockFileMaintenance": {
+    "enabled": true
+  },
+  "automerge": true,
+  "major": {
+    "automerge": false
+  },
+  "postUpdateOptions": ["npmDedupe"]
+}

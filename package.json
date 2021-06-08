@@ -10,7 +10,15 @@
     "sass-lint": "sass-lint -vq ./src/sass",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "webpack",
+    "webpack 5",
+    "webpack multipage",
+    "webpack sass",
+    "webpack pug",
+    "sass",
+    "pug"
+  ],
   "author": "Elena Bravo",
   "license": "ISC",
   "devDependencies": {
@@ -67,7 +75,7 @@
   "dependencies": {},
   "repository": {
     "type": "git",
-    "url": "https://github.com/thebakerdev/webpack-pug-scss-babel.git"
+    "url": "https://github.com/elenabravo/webpack5-pug-sass-starter"
   },
   "husky": {
     "hooks": {
