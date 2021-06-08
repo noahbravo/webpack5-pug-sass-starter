@@ -1,0 +1,32 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+    "globals": {
+    "window": false,
+    "document": false,
+    "FormData": false,
+    "FileReader": false
+  },
+  "plugins": ["import", "promise", "node"],
+  "extends": ["standard", "plugin:prettier/recommended"],
+  "parserOptions": {
+    "ecmaVersion": 9,
+    "sourceType": "module"
+  },
+  "rules": {
+    "semi": ["error", "never"],
+    "comma-dangle": ["error", "never"],
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto",
+        "singleQuote": true,
+        "semi": false,
+        "trailingComma": "none"
+      }
+    ]
+  }
+}
