@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Webpack 5 configuration for Single or Multipage websites using Pug, Sass, PostCSS, Babel and Browsersync",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack serve --mode development",
-    "prod": "cross-env NODE_ENV=production webpack --mode production",
+    "start": "cross-env NODE_ENV=development webpack serve --mode development",
+    "build": "cross-env NODE_ENV=production webpack --mode production",
     "lint": "eslint --ext .js ./src/js",
     "lint:fix": "eslint --ext .js --fix ./src/js",
     "sass-lint": "sass-lint -vq ./src/sass",
@@ -61,6 +61,7 @@
     "pug": "3.0.2",
     "pug-html-loader": "1.1.5",
     "raw-loader": "4.0.2",
+    "replace-ext": "^2.0.0",
     "sass": "1.35.2",
     "sass-lint": "1.13.1",
     "sass-loader": "12.1.0",

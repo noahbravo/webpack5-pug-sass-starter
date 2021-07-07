@@ -6,15 +6,30 @@ const TerserJSPlugin = require('terser-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+const replaceExt = require('replace-ext')
+const projectConfig = require('./project.config')
+
+const { srcPath, buildPath, templatePath, templateFiles } = projectConfig
+
+const htmlPlugins = templateFiles.reduce((acc, templateFile, index) => {
+  acc.push(
+    new HtmlWebpackPlugin({
+      template: templateFile,
+      filename: replaceExt(path.basename(templateFile), '.html'),
+      minify: false
+    })
+  )
+  return acc
+}, [])
 
 module.exports = {
   entry: {
-    home: './src/index.pug',
-    app: './src/js/app.js'
+    home: `${templatePath}/index.pug`,
+    app: `${srcPath}/js/app.js`
   },
 
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, buildPath),
     filename: 'js/[name].js'
   },
 
@@ -92,18 +107,14 @@ module.exports = {
   },
 
   plugins: [
-    new HtmlWebpackPlugin({
-      title: 'Webpack Starter',
-      template: './src/index.pug',
-      minify: false
-    }),
     new MiniCssExtractPlugin({
       filename: './css/style.css',
       chunkFilename: '[id].css'
     }),
     new CopyPlugin({
       patterns: [{ from: './src/fonts', to: 'fonts' }]
-    })
+    }),
+    ...htmlPlugins
   ]
 }
 
