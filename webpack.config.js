@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const path = require('path')
+const fs = require('fs')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const TerserJSPlugin = require('terser-webpack-plugin')
@@ -9,18 +10,22 @@ const CopyPlugin = require('copy-webpack-plugin')
 const replaceExt = require('replace-ext')
 const projectConfig = require('./project.config')
 
-const { srcPath, buildPath, templatePath, templateFiles } = projectConfig
+const { srcPath, buildPath, templatePath } = projectConfig
+const templateFiles = fs.readdirSync(path.resolve(__dirname, templatePath))
 
 const htmlPlugins = templateFiles.reduce((acc, templateFile, index) => {
+  const templateFilePath = `${templatePath}/${templateFile}`
   acc.push(
     new HtmlWebpackPlugin({
-      template: templateFile,
-      filename: replaceExt(path.basename(templateFile), '.html'),
+      template: templateFilePath,
+      filename: replaceExt(path.basename(templateFilePath), '.html'),
       minify: false
     })
   )
   return acc
 }, [])
+
+const devMode = process.env.NODE_ENV === 'development'
 
 module.exports = {
   entry: {
@@ -30,7 +35,7 @@ module.exports = {
 
   output: {
     path: path.resolve(__dirname, buildPath),
-    filename: 'js/[name].js'
+    filename: devMode ? 'js/[name].js' : 'js/[name].[contenthash].js'
   },
 
   devServer: {
@@ -97,7 +102,7 @@ module.exports = {
       },
 
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        test: /\.(png|svg|jpg|jpeg|gif|ico")$/i,
         type: 'asset/resource',
         generator: {
           filename: './images/[name][ext]'
@@ -108,8 +113,8 @@ module.exports = {
 
   plugins: [
     new MiniCssExtractPlugin({
-      filename: './css/style.css',
-      chunkFilename: '[id].css'
+      filename: devMode ? './css/style.css' : './css/style.[contenthash].css',
+      chunkFilename: devMode ? '[id].css' : '[id].[contenthash].css'
     }),
     new CopyPlugin({
       patterns: [{ from: './src/fonts', to: 'fonts' }]
@@ -118,7 +123,7 @@ module.exports = {
   ]
 }
 
-if (process.env.NODE_ENV === 'development') {
+if (devMode) {
   module.exports.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
     new BrowserSyncPlugin(
