@@ -8,12 +8,12 @@
     position: relative
     z-index: 10
 
+    &--blue
+      color: $accent-color
+      margin-right: rem(10px)
+
   &__command-list
     position: absolute
-
-  &__command-blue
-    color: $accent-color
-    margin-right: rem(10px)
 
   &__readme
     display: inline-flex
@@ -22,12 +22,12 @@
     position: relative
     z-index: 10
 
-  &__readme-title, &__readme-comment
-    display: flex
+    &--title, &--comment
+      display: flex
 
-  &__readme-comment
-    align-self: center
-    text-transform: capitalize
+    &--comment
+      align-self: center
+      text-transform: capitalize
 
   &__image
     display: flex
