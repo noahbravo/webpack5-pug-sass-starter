@@ -102,10 +102,13 @@ module.exports = {
       },
 
       {
-        test: /\.(png|svg|jpg|jpeg|gif|ico")$/i,
+        test: /\.(png|svg|jpg|jpeg|gif|mov|mp4|webmanifest|ico|xml)$/i,
         type: 'asset/resource',
         generator: {
-          filename: './images/[name][ext]'
+          filename: (name) => {
+            const path = name.filename.split('/').slice(1, -1).join('/')
+            return `${path}/[name][ext]`
+          }
         }
       }
     ]
