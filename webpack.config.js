@@ -102,7 +102,7 @@ module.exports = {
       },
 
       {
-        test: /\.(png|svg|jpg|jpeg|gif|mov|mp4|webmanifest|ico|xml)$/i,
+        test: /\.(png|svg|jpg|jpeg|gif|mov|mp4|ico|webmanifest|xml)$/i,
         type: 'asset/resource',
         generator: {
           filename: (name) => {
