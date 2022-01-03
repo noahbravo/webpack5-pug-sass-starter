@@ -67,9 +67,9 @@ module.exports = {
         type: 'asset/source',
         use: [
           {
-            loader: 'pug-html-loader',
+            loader: '@webdiscus/pug-loader',
             options: {
-              pretty: true
+              method: 'html'
             }
           }
         ]
