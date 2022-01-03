@@ -1,3 +1,5 @@
+@use "../0-config/helpers" as h
+
 //	Typography
 strong
   font-weight: normal
@@ -18,9 +20,9 @@ body
   overflow: hidden
 
 body
-  background: $bg-color
-  color: $text-color
+  background: h.$bg-color
+  color: h.$text-color
   font-family: 'FSEX300', sans-serif
-  font-size: rem(16px)
+  font-size: 16px
   line-height: 1.6
   -webkit-font-smoothing: antialiased

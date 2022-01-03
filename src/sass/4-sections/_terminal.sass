@@ -1,3 +1,6 @@
+@use "~sass-rem" as rem
+@use "../0-config/helpers" as h
+
 .terminal
   display: flex
   height: 100%
@@ -9,8 +12,8 @@
     z-index: 10
 
     &--blue
-      color: $accent-color
-      margin-right: rem(10px)
+      color: h.$accent-color
+      margin-right: rem.convert(10px)
 
   &__command-list
     position: absolute
@@ -18,7 +21,7 @@
   &__readme
     display: inline-flex
     flex-direction: column
-    margin-top: rem(20px)
+    margin-top: rem.convert(20px)
     position: relative
     z-index: 10
 
@@ -47,5 +50,5 @@
 
   &__image-text
     width: 100%
-    margin-top: rem(20px)
+    margin-top: rem.convert(20px)
     text-align: center
