@@ -51,7 +51,7 @@
     "file-loader": "6.2.0",
     "html-webpack-plugin": "5.5.0",
     "husky": "7.0.4",
-    "mini-css-extract-plugin": "2.4.5",
+    "mini-css-extract-plugin": "2.4.6",
     "normalize.css": "8.0.1",
     "popper.js": "1.16.1",
     "postcss": "8.4.5",
