@@ -60,7 +60,7 @@
     "pug": "3.0.2",
     "raw-loader": "4.0.2",
     "replace-ext": "2.0.0",
-    "sass": "1.45.2",
+    "sass": "1.46.0",
     "sass-loader": "12.4.0",
     "sass-rem": "3.0.0",
     "style-loader": "3.3.1",
