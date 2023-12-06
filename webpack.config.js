@@ -7,6 +7,7 @@ const TerserJSPlugin = require('terser-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+const ESLintPlugin = require('eslint-webpack-plugin')
 const replaceExt = require('replace-ext')
 const projectConfig = require('./project.config')
 
@@ -122,6 +123,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [{ from: './src/fonts', to: 'fonts' }]
     }),
+    new ESLintPlugin(),
     ...htmlPlugins
   ]
 }
