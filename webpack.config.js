@@ -1,45 +1,38 @@
 const webpack = require('webpack')
 const path = require('path')
 const fs = require('fs')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const TerserJSPlugin = require('terser-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const PugPlugin = require('pug-plugin')
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
-const CopyPlugin = require('copy-webpack-plugin')
+const ESLintPlugin = require('eslint-webpack-plugin')
 const replaceExt = require('replace-ext')
 const projectConfig = require('./project.config')
 
 const { srcPath, buildPath, templatePath } = projectConfig
 const templateFiles = fs.readdirSync(path.resolve(__dirname, templatePath))
 
-const htmlPlugins = templateFiles.reduce((acc, templateFile, index) => {
-  const templateFilePath = `${templatePath}/${templateFile}`
-  acc.push(
-    new HtmlWebpackPlugin({
-      template: templateFilePath,
-      filename: replaceExt(path.basename(templateFilePath), '.html'),
-      minify: false
-    })
-  )
-  return acc
-}, [])
-
 const devMode = process.env.NODE_ENV === 'development'
 
 module.exports = {
-  entry: {
-    home: `${templatePath}/index.pug`,
-    app: `${srcPath}/js/app.js`
-  },
+  mode: devMode ? 'development' : 'production',
+  devtool: devMode ? 'inline-source-map' : 'source-map',
 
   output: {
-    path: path.resolve(__dirname, buildPath),
-    filename: devMode ? 'js/[name].js' : 'js/[name].[contenthash].js'
+    path: path.join(__dirname, buildPath)
+  },
+
+  entry: {
+    ...templateFiles.reduce((acc, templateFile) => {
+      const templateName = templateFile.split('.pug')[0]
+      const templateFilePath = `${templatePath}/${templateFile}`
+      acc[templateName] = templateFilePath
+      return acc
+    }, {})
   },
 
   devServer: {
-    static: path.join(__dirname, 'dist'),
+    static: path.join(__dirname, buildPath),
     compress: true,
     port: 9000,
     hot: true
@@ -64,65 +57,48 @@ module.exports = {
 
       {
         test: /\.pug$/,
-        type: 'asset/source',
-        use: [
-          {
-            loader: '@webdiscus/pug-loader',
-            options: {
-              method: 'html'
-            }
-          }
-        ]
+        loader: PugPlugin.loader
       },
 
       {
-        test: /\.(sa|sc|c)ss$/,
-        use: [
-          'style-loader',
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              esModule: false
-            }
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              url: false
-            }
-          },
-          'postcss-loader',
-          'sass-loader'
-        ]
+        test: /\.(css|sass|scss)$/,
+        use: ['css-loader', 'sass-loader']
       },
 
       {
         test: /\.svg|eot|ttf|woff|woff2$/,
-        type: 'asset/inline'
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/fonts/[name].[ext]'
+        }
       },
 
       {
-        test: /\.(png|svg|jpg|jpeg|gif|mov|mp4|ico|webmanifest|xml)$/i,
+        test: /[\\/]images[\\/].+\.(png|svg|jpe?g|gif|mov|mp4|ico|webmanifest|xml)$/i,
         type: 'asset/resource',
         generator: {
-          filename: (name) => {
-            const path = name.filename.split('/').slice(1, -1).join('/')
-            return `${path}/[name][ext]`
-          }
+          filename: 'assets/img/[name].[hash:8][ext]'
         }
       }
     ]
   },
 
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: devMode ? './css/style.css' : './css/style.[contenthash].css',
-      chunkFilename: devMode ? '[id].css' : '[id].[contenthash].css'
-    }),
-    new CopyPlugin({
-      patterns: [{ from: './src/fonts', to: 'fonts' }]
-    }),
-    ...htmlPlugins
+    new ESLintPlugin(),
+    new PugPlugin({
+      js: {
+        // output name of a generated JS file
+        filename: devMode
+          ? 'assets/js/[name].js'
+          : 'assets/js/[name].[contenthash].js'
+      },
+      css: {
+        // output name of a generated CSS file
+        filename: devMode
+          ? 'assets/css/[name].css'
+          : 'assets/css/[name].[contenthash:8].css'
+      }
+    })
   ]
 }
 
