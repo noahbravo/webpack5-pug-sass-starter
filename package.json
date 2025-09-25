@@ -45,7 +45,7 @@
     "eslint-plugin-standard": "5.0.0",
     "eslint-webpack-plugin": "4.0.1",
     "file-loader": "6.2.0",
-    "husky": "8.0.3",
+    "husky": "9.1.7",
     "normalize.css": "8.0.1",
     "popper.js": "1.16.1",
     "postcss": "8.4.32",
