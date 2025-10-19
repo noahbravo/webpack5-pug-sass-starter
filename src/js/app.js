@@ -1,4 +1,4 @@
-import { onDocumentReady, importAll } from './functions.js'
+import { onDocumentReady } from './functions.js'
 
 onDocumentReady(function () {
   console.log('hello friend.')

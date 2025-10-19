@@ -1,4 +1,4 @@
-export const onDocumentReady = (callback) => {
+function onDocumentReady(callback) {
   // in case the document is already rendered
   if (document.readyState !== 'loading') callback()
   // modern browsers
@@ -11,4 +11,6 @@ export const onDocumentReady = (callback) => {
     })
 }
 
-export const importAll = (require) => require.keys().map(require)
+const importAll = (require) => require.keys().map(require)
+
+export { onDocumentReady, importAll }
