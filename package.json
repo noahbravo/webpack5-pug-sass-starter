@@ -34,7 +34,7 @@
     "eslint-plugin-n": "17.23.1",
     "eslint-plugin-prettier": "5.5.4",
     "eslint-plugin-promise": "7.2.1",
-    "eslint-webpack-plugin": "5.0.2",
+    "eslint-webpack-plugin": "6.0.0",
     "husky": "9.1.7",
     "normalize.css": "8.0.1",
     "postcss": "8.5.6",
