@@ -1,19 +1,22 @@
+section.terminal__wrapper
+  .terminal
+    .terminal__command-list
+      .terminal__command
+        strong.terminal__command--blue eterm##$: BKUW300PS345672:
+        span.terminal__command--white fsociety00.dat  readme.txt
 
-.terminal
-  .terminal__command-list
-    .terminal__command
-      strong.terminal__command--blue eterm##$: BKUW300PS345672:
-      span.terminal__command--white fsociety00.dat  readme.txt
+      .terminal__command
+        strong.terminal__command--blue eterm##$: BKUW300PS345672:
+        span.terminal__command--white more readme.txt
 
-    .terminal__command
-      strong.terminal__command--blue eterm##$: BKUW300PS345672:
-      span.terminal__command--white more readme.txt
+      .terminal__readme
+        span.terminal__readme--title ------readme.txt------
+        strong.terminal__readme--comment leave me here
+        span.terminal__readme--title ------readme.txt------
 
-    .terminal__readme
-      span.terminal__readme--title ------readme.txt------
-      strong.terminal__readme--comment leave me here
-      span.terminal__readme--title ------readme.txt------
-
-  .terminal__image-container
-    img.terminal__image(src=require("../assets/images/fsociety_logo.svg"), width="250")
-    .terminal__image-text hello friend.
+    .terminal__image-container
+      img.terminal__image(
+        src='/src/assets/images/fsociety_logo.svg'
+        width='250'
+      )
+      .terminal__image-text hello friend.
